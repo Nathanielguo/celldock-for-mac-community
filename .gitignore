@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+*.dSYM
+
+# Swift Package Manager
+.build/
+.build-*/
+.swiftpm/
+
+# Xcode
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Go build cache
+**/.cache/
+
+# Build artifacts
+output/
+outputs/
+tmp/
+*.app
+*.zip
+
+# Project-specific
+website/
+.codex/
+/MEMORY.md
+/design-qa.md

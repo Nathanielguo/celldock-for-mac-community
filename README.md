@@ -14,13 +14,12 @@
   <sub>Screenshots · click to view full size</sub>
 </p>
 
+> Screenshots illustrate the interface and may show an earlier build than the source version below.
+
 | SMS | Calls |
 | :---: | :---: |
 | <a href="screenshot/1. sms.png"><img src="screenshot/1. sms.png" width="320" alt="SMS"></a> | <a href="screenshot/2. call.png"><img src="screenshot/2. call.png" width="320" alt="Calls"></a> |
 
-| In-Call | In-Call |
-| :---: | :---: |
-| <a href="screenshot/2.1 calling.png"><img src="screenshot/2.1 calling.png" width="320" alt="In-Call"></a> | <a href="screenshot/2.2 calling.png"><img src="screenshot/2.2 calling.png" width="320" alt="In-Call"></a> |
 
 | Recordings | Proxy |
 | :---: | :---: |
@@ -158,8 +157,8 @@ Releases. Community archives built with the instructions below are not notarized
 ### Build and checks
 
 ```sh
-git clone https://github.com/Nathanielguo/celldock-for-mac.git
-cd celldock-for-mac
+git clone https://github.com/Nathanielguo/celldock-for-mac-community.git
+cd celldock-for-mac-community
 scripts/run_tests.sh
 
 CELLDOCK_SIGNING_MODE=community \

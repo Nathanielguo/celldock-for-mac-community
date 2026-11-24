@@ -1,0 +1,76 @@
+#ifndef CELLDOCK_EUICC_CORE_H
+#define CELLDOCK_EUICC_CORE_H
+
+#include <stddef.h>
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct CellDockEUICCSession CellDockEUICCSession;
+
+typedef int (*CellDockEUICCATCallback)(
+    void *context,
+    const char *command,
+    int timeout_ms,
+    char *output,
+    size_t output_capacity
+);
+
+typedef int (*CellDockEUICCHTTPCallback)(
+    void *context,
+    const char *url,
+    const char *const *headers,
+    const uint8_t *request_bytes,
+    uint32_t request_length,
+    uint32_t *status_code,
+    uint8_t **response_bytes,
+    uint32_t *response_length
+);
+
+typedef struct {
+    void *context;
+    CellDockEUICCATCallback at_command;
+    CellDockEUICCHTTPCallback http_request;
+} CellDockEUICCCallbacks;
+
+enum {
+    CELLDOCK_EUICC_OK = 0,
+    CELLDOCK_EUICC_TRANSPORT_ERROR = -1,
+    CELLDOCK_EUICC_PROTOCOL_ERROR = -2,
+    CELLDOCK_EUICC_INVALID_ARGUMENT = -3,
+    CELLDOCK_EUICC_OUT_OF_MEMORY = -4
+};
+
+CellDockEUICCSession *celldock_euicc_create(CellDockEUICCCallbacks callbacks);
+void celldock_euicc_destroy(CellDockEUICCSession *session);
+
+/* Returns a UTF-8 JSON object containing eid and profiles. */
+int celldock_euicc_read_snapshot(CellDockEUICCSession *session, char **json_output);
+
+int celldock_euicc_enable_profile(CellDockEUICCSession *session, const char *iccid);
+int celldock_euicc_disable_profile(CellDockEUICCSession *session, const char *iccid);
+int celldock_euicc_delete_profile(CellDockEUICCSession *session, const char *iccid);
+int celldock_euicc_set_nickname(
+    CellDockEUICCSession *session,
+    const char *iccid,
+    const char *nickname
+);
+
+int celldock_euicc_download_profile(
+    CellDockEUICCSession *session,
+    const char *smdp_address,
+    const char *matching_id,
+    const char *confirmation_code,
+    const char *imei
+);
+
+const char *celldock_euicc_last_error(const CellDockEUICCSession *session);
+void celldock_euicc_free(void *pointer);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
